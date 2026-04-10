@@ -2,8 +2,11 @@ name: Sync Fork with Upstream
 
 on:
   schedule:
-    - cron: '0 15 * * 0'  # 毎週日曜日 深夜0時JST
-  workflow_dispatch:       # 手動実行も可能
+    - cron: '0 15 * * 0'
+  workflow_dispatch:
+
+permissions:
+  contents: write
 
 jobs:
   sync:
