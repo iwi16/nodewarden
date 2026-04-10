@@ -1,0 +1,23 @@
+name: Sync Fork with Upstream
+
+on:
+  schedule:
+    - cron: '0 15 * * 0'  # 毎週日曜日 深夜0時JST
+  workflow_dispatch:       # 手動実行も可能
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Sync with upstream
+        run: |
+          git remote add upstream https://github.com/shuaiplus/nodewarden.git
+          git fetch upstream
+          git checkout main
+          git merge upstream/main --no-edit
+          git push origin main
